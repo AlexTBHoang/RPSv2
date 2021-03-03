@@ -3,6 +3,7 @@ let computerScore = 0;
 let playerScore_span = document.getElementById("player-score");
 const computerScore_span = document.getElementById("computer-score");
 const result_p = document.querySelector(".match > p");
+const reset = document.querySelector(".reset > p")
 const rock_div = document.getElementById("r");
 const paper_div = document.getElementById("p");
 const scissor_div = document.getElementById("s");
@@ -26,14 +27,20 @@ function win(userChoice, computerChoice) {
     playerScore_span.innerHTML = playerScore;
     computerScore_span.innerHTML = computerScore;
     result_p.innerHTML = `${convertToWord(userChoice)} beats ${convertToWord(computerChoice)}. You win!`;
+    if (playerScore === 5 || computerScore === 5) {
+        gameEnd();
+    }
 }
 
 function lose(userChoice, computerChoice) {
     computerScore++;
     playerScore_span.innerHTML = playerScore;
     computerScore_span.innerHTML = computerScore;
-    result_p.innerHTML = `${convertToWord(userChoice)} loses to ${convertToWord(computerChoice)}. You lose!`;   
+    result_p.innerHTML = `${convertToWord(userChoice)} loses to ${convertToWord(computerChoice)}. You lose!`;  
+    if (playerScore === 5 || computerScore === 5) {
+        gameEnd(); 
     }
+}
 
 function draw(userChoice, computerChoice) {
     playerScore_span.innerHTML = playerScore;
@@ -44,6 +51,7 @@ function draw(userChoice, computerChoice) {
 
 function game(userChoice) {
     const computerChoice = getComputerChoice();
+    reset.innerHTML = "";
     switch (userChoice + computerChoice) {
         case "rs":
         case "pr":
@@ -64,14 +72,12 @@ function game(userChoice) {
 }
 
 function gameEnd() {
-    if (playerScore === 5) {
-        result_p.innerHTML = `You Won!`;
+    if (playerScore > computerScore) {
+        reset.innerHTML = `You Won the game, choose an option to play again!`;
         playerScore = 0;
         computerScore = 0;
-    }
-
-    if (computerScore === 5) {
-        result_p.innerHTML = `You Lose!`;
+    } else {
+        reset.innerHTML = `You Lose the game, choose an option to play again!`;
         playerScore = 0;
         computerScore = 0;
     }
@@ -88,6 +94,8 @@ function main() {
         game("s");
     })
 }
+
 main();
+
 
 

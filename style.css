@@ -71,4 +71,10 @@ section {
     opacity: 0.4;
 }
 
+.reset p {
+    color: rgb(194, 194, 194);
+    text-align: center;
+    font-size: 30px;
+}
+
 
